@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Troubleshooter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e3f2fd;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .diagnostic-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #0d47a1;
+        }
+
+        select, button {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0d47a1;
+        }
+    </style>
+</head>
+<body>
+    <div class="diagnostic-container">
+        <h1>Welcome to PC Troubleshooter</h1>
+        <p>Select symptoms and get a quick diagnosis for your PC issues.</p>
+        <label for="symptom-select">Your Symptoms:</label>
+        <select id="symptom-select" multiple>
+            {% for rule in rules %}
+                <option value="{{ loop.index }}">{{ rule.conditions | join(', ') }}</option>
+            {% endfor %}
+        </select>
+        <button onclick="submitDiagnosis()">Diagnose</button>
+        <div id="diagnosis-result"></div>
+    </div>
+    <script>
+        function submitDiagnosis() {
+            const selectedSymptoms = Array.from(document.getElementById('symptom-select').selectedOptions).map(option => option.value);
+            fetch('/diagnose', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({selected_symptoms: selectedSymptoms}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('diagnosis-result').innerText = data.message;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
