@@ -13,6 +13,6 @@ To run this project, you'll need Python and Flask.
 
 Clone the Repository
 
-git clone https://yourgithubrepositorylinkhere.git
+git clone https://github.com/mezianeAmine/SystemExpert.git
 
 
