@@ -1,0 +1,7 @@
+Screen Flickering: Video Card Issue
+Persistent Beeping on Startup: RAM Issue
+System Freezes Frequently: Processor Overheating
+Unusual Grinding Sound: Failing Hard Drive
+Programs Not Responding: Operating System Corruption
+Slow Internet Speed: Network Adapter Issue
+Computer Restarts Randomly: Power Supply Malfunction
